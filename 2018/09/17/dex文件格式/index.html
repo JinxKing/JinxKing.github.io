@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android逆向," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="dex文件中的数据结构   类型 含义     u1 等同uint8_t，表示1字节的无符号数   u2 等同于uint16_t，表示2字节的无符号数   u4 等同于uint32_t，表示4字节的无符号数   u8 等同于uint64_t，表示8字节的无符号数   sleb128 有符号LEB128，可变长度1~5字节   uleb128 无符号LEB128，可变长度1~5字节   uleb12">
+<meta name="keywords" content="Android逆向">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dex文件格式">
+<meta property="og:url" content="http://yoursite.com/2018/09/17/dex文件格式/index.html">
+<meta property="og:site_name" content="Jinx&#39;blog">
+<meta property="og:description" content="dex文件中的数据结构   类型 含义     u1 等同uint8_t，表示1字节的无符号数   u2 等同于uint16_t，表示2字节的无符号数   u4 等同于uint32_t，表示4字节的无符号数   u8 等同于uint64_t，表示8字节的无符号数   sleb128 有符号LEB128，可变长度1~5字节   uleb128 无符号LEB128，可变长度1~5字节   uleb12">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://github.com/JinxKing/image/raw/master/image/hello_dex.png">
+<meta property="og:image" content="https://github.com/JinxKing/image/raw/master/image/hello_dex1.png">
+<meta property="og:image" content="https://github.com/JinxKing/image/raw/master/image/hello_dex2.png">
+<meta property="og:image" content="https://github.com/JinxKing/image/raw/master/image/hello_dex3.png">
+<meta property="og:updated_time" content="2018-09-17T08:04:06.254Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="dex文件格式">
+<meta name="twitter:description" content="dex文件中的数据结构   类型 含义     u1 等同uint8_t，表示1字节的无符号数   u2 等同于uint16_t，表示2字节的无符号数   u4 等同于uint32_t，表示4字节的无符号数   u8 等同于uint64_t，表示8字节的无符号数   sleb128 有符号LEB128，可变长度1~5字节   uleb128 无符号LEB128，可变长度1~5字节   uleb12">
+<meta name="twitter:image" content="https://github.com/JinxKing/image/raw/master/image/hello_dex.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/17/dex文件格式/"/>
+
+
+
+
+
+  <title>dex文件格式 | Jinx'blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Jinx'blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Jinx'home</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/dex文件格式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jinx">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/default_avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jinx'blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">dex文件格式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-17T15:24:26+08:00">
+                2018-09-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="dex文件中的数据结构"><a href="#dex文件中的数据结构" class="headerlink" title="dex文件中的数据结构"></a>dex文件中的数据结构</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>u1</td>
+<td>等同uint8_t，表示1字节的无符号数</td>
+</tr>
+<tr>
+<td>u2</td>
+<td>等同于uint16_t，表示2字节的无符号数</td>
+</tr>
+<tr>
+<td>u4</td>
+<td>等同于uint32_t，表示4字节的无符号数</td>
+</tr>
+<tr>
+<td>u8</td>
+<td>等同于uint64_t，表示8字节的无符号数</td>
+</tr>
+<tr>
+<td>sleb128</td>
+<td>有符号LEB128，可变长度1~5字节</td>
+</tr>
+<tr>
+<td>uleb128</td>
+<td>无符号LEB128，可变长度1~5字节</td>
+</tr>
+<tr>
+<td>uleb128p1</td>
+<td>无符号LEB128值加1，可变长度1~5字节</td>
+</tr>
+</tbody>
+</table>
+<p>每个LB125由1~5个字节组成，所有的字节组合在一起表示一个32位的数据。每个字节只有7位有效位，如果第一个字节的最高位为1，表示LEB128需要使用到第2个字节，如果LEB第二个字节的最高位为1，表示会使用到第3个字节，以此类推。LEB128最多使用5个字节，如果读取5个字节后下一个字节最高位仍为1，则表示该dex文件无效。</p>
+<p>以字符序列“c0 83 92 25”为例，计算它的uleb128的值：</p>
+<p>第1个字节0xc0 &gt; 0x7c ，表示会用到第2个字节。result = 0x0c &amp; 0x7f</p>
+<p>第2个字节0x83 &gt; 0x7c，表示会用到第3个字节。result = result + 0x83 &amp; 0x7f &lt;&lt; 7</p>
+<p>第3个字节0x92 &gt; 0x7c，表示会用到第4个字节。result = result + 0x92 &amp; 0x7c &lt;&lt; 14</p>
+<p>第4个字节0x25 &lt; 0x7c，表示到了结尾。result = result + 0x25 &amp; 0x7c &lt;&lt; 21</p>
+<p>计算结果为0x40 + 0x180 + 0x48000 +0x4a00000 = 0x4a481c0</p>
+<p>以字符序列“d1 c2 b3 40”为例，计算它的sleb128值。</p>
+<p>result = 0xd1 &amp; 0x7f </p>
+<p>result=result + 0xc2 &amp; 0x7f &lt;&lt; 7</p>
+<p>result=result + b3 &amp; 0x7f &lt;&lt; 14</p>
+<p>result=(result + 40 &amp; 0x7f &lt;&lt;21)&lt;&lt;4)&gt;&gt;4</p>
+<h2 id="dex文件整体结构"><a href="#dex文件整体结构" class="headerlink" title="dex文件整体结构"></a>dex文件整体结构</h2><p>dex文件由7个部分组成。dex header为dex文件头，它指定了dex文件的一些属性，并记录了其他6部分数据结构在dex文件中的物理偏移。<code>string_ids</code>和 <code>class_def</code> 结构可以裂解为索引结构区，真实的数据存放在data中。最后的<code>link_data</code>为静态链接数据区，对于目前生成的dex文件而言，它始终为空。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">dex head</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">string_ids</td>
+</tr>
+<tr>
+<td style="text-align:center">type_ids</td>
+</tr>
+<tr>
+<td style="text-align:center">proto_ids</td>
+</tr>
+<tr>
+<td style="text-align:center">field_ids</td>
+</tr>
+<tr>
+<td style="text-align:center">method_ids</td>
+</tr>
+<tr>
+<td style="text-align:center">class_def</td>
+</tr>
+<tr>
+<td style="text-align:center">data</td>
+</tr>
+<tr>
+<td style="text-align:center">link_data</td>
+</tr>
+</tbody>
+</table>
+<p>未经过优化的dex文件结构表示如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexFile</span> &#123;</span></span><br><span class="line">    DexHeader     header;</span><br><span class="line">    DexStringId     StringIds[StringIdsSize];</span><br><span class="line">    DexTypeId      TypeIds[typeIdsSize];</span><br><span class="line">    DexProtoId     ProtoIds[protoIdsSize];</span><br><span class="line">    DexFieldId      FieldIds[fieldIdsSize];</span><br><span class="line">    DexMethodId   MethodIds[methodIdsSize];</span><br><span class="line">    DexClassDef    Data[];</span><br><span class="line">    DexLink        LinkData;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>DexFile结构的声明在Android系统源码dalvik\libdex\DexFile.h文件中。</p>
+<p>dex文件头</p>
+<table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>偏移量字节</th>
+<th>长度(byte)</th>
+<th>字段描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>magic[8]</td>
+<td>0x0</td>
+<td>0x8</td>
+<td>dex版本标识</td>
+</tr>
+<tr>
+<td>checksum</td>
+<td>0x8</td>
+<td>0x4</td>
+<td>alder32算法, 去除了magic和checksum 字段之外的所有内容的校验码</td>
+</tr>
+<tr>
+<td>signature</td>
+<td>0xc</td>
+<td>0x14</td>
+<td>sha-1签名,去除了magic、checksum和 signature字段之外的所有内容的签名</td>
+</tr>
+<tr>
+<td>fileSize</td>
+<td>0x20</td>
+<td>0x4</td>
+<td>整个dex的文件大小</td>
+</tr>
+<tr>
+<td>headerSize</td>
+<td>0x24</td>
+<td>0x4</td>
+<td>整个dex文件头的大小 (固定大小为0x70)</td>
+</tr>
+<tr>
+<td>endianTag</td>
+<td>0x28</td>
+<td>0x4</td>
+<td>字节序 (大尾方式、小尾方式) 默认为小尾方式 <--> 0x12345678</--></td>
+</tr>
+<tr>
+<td>linkSize</td>
+<td>0x2c</td>
+<td>0x4</td>
+<td>链接段的大小, 默认为0表示静态链接</td>
+</tr>
+<tr>
+<td>linkOff</td>
+<td>0x30</td>
+<td>0x4</td>
+<td>链接段开始偏移</td>
+</tr>
+<tr>
+<td>mapOff</td>
+<td>0x34</td>
+<td>0x4</td>
+<td>DexMapList的文件偏移</td>
+</tr>
+<tr>
+<td>stringIdsSize</td>
+<td>0x38</td>
+<td>0x4</td>
+<td>DexStringId个数</td>
+</tr>
+<tr>
+<td>stringIdsOff</td>
+<td>0x3c</td>
+<td>0x4</td>
+<td>DexStringId偏移</td>
+</tr>
+<tr>
+<td>typeIdsSize</td>
+<td>0x40</td>
+<td>0x4</td>
+<td>DexTypeId个数</td>
+</tr>
+<tr>
+<td>typeIdsOff</td>
+<td>0x44</td>
+<td>0x4</td>
+<td>DexTypeId偏移</td>
+</tr>
+<tr>
+<td>protoIdsSize</td>
+<td>0x48</td>
+<td>0x4</td>
+<td>DexProtoId个数</td>
+</tr>
+<tr>
+<td>protoIdsOff</td>
+<td>0x4c</td>
+<td>0x4</td>
+<td>DexProtoId偏移</td>
+</tr>
+<tr>
+<td>fieldIdsSize</td>
+<td>0x50</td>
+<td>0x4</td>
+<td>DexFieldId个数</td>
+</tr>
+<tr>
+<td>fieldIdsOff</td>
+<td>0x54</td>
+<td>0x4</td>
+<td>DexFieldId偏移</td>
+</tr>
+<tr>
+<td>methodIdsSize</td>
+<td>0x58</td>
+<td>0x4</td>
+<td>DexMethodId个数</td>
+</tr>
+<tr>
+<td>methodIdsOff</td>
+<td>0x5c</td>
+<td>0x4</td>
+<td>DexMethodId偏移</td>
+</tr>
+<tr>
+<td>classDefsSize</td>
+<td>0x60</td>
+<td>0x4</td>
+<td>DexClassDef个数</td>
+</tr>
+<tr>
+<td>classDefsOff</td>
+<td>0x64</td>
+<td>0x4</td>
+<td>DexClassDef偏移</td>
+</tr>
+<tr>
+<td>dataSize</td>
+<td>0x68</td>
+<td>0x4</td>
+<td>数据段大小</td>
+</tr>
+<tr>
+<td>dataOff</td>
+<td>0x6c</td>
+<td>0x4</td>
+<td>数据段偏移</td>
+</tr>
+</tbody>
+</table>
+<p>DexHeader结构下面的数据为“索引结构区”与“数据区”。</p>
+<p>“索引结构区”中各数据结构的偏移地址都是从DexHeader结构的stringIdsOff~classDefsOff字段的值指定的，它们并非真正的类数据，而是指向dex文件的data数据区的偏移或数据结构索引。</p>
+<p>DexHeader结构声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexHeader</span> &#123;</span></span><br><span class="line">    u1  magic[<span class="number">8</span>];           </span><br><span class="line">    u4  checksum;          </span><br><span class="line">    u1  signature[kSHA1DigestLen];</span><br><span class="line">    u4  fileSize;           </span><br><span class="line">    u4  headerSize;        </span><br><span class="line">    u4  endianTag;</span><br><span class="line">    u4  linkSize;</span><br><span class="line">    u4  linkOff;</span><br><span class="line">    u4  mapOff;</span><br><span class="line">    u4  stringIdsSize;</span><br><span class="line">    u4  stringIdsOff;</span><br><span class="line">    u4  typeIdsSize;</span><br><span class="line">    u4  typeIdsOff;</span><br><span class="line">    u4  protoIdsSize;</span><br><span class="line">    u4  protoIdsOff;</span><br><span class="line">    u4  fieldIdsSize;</span><br><span class="line">    u4  fieldIdsOff;</span><br><span class="line">    u4  methodIdsSize;</span><br><span class="line">    u4  methodIdsOff;</span><br><span class="line">    u4  classDefsSize;</span><br><span class="line">    u4  classDefsOff;</span><br><span class="line">    u4  dataSize;</span><br><span class="line">    u4  dataOff;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="dex文件结构分析"><a href="#dex文件结构分析" class="headerlink" title="dex文件结构分析"></a>dex文件结构分析</h2><h3 id="DexMapItem"><a href="#DexMapItem" class="headerlink" title="DexMapItem"></a>DexMapItem</h3><p>Dalvik虚拟机解析dex文件的内容，最终将其映射成DexMapList数据结构，DexHeader结构的mapOff字段指明了DexMapList结构在dex文件中的偏移，它的声明如下。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMapList</span> &#123;</span></span><br><span class="line">    u4  size;               <span class="comment">/* DexMapItem的个数 */</span></span><br><span class="line">    DexMapItem <span class="built_in">list</span>[<span class="number">1</span>];     <span class="comment">/* DexMapItem的结构 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>size字段表示接下来有多少个DexMapItem结构，DexMapItem的结构声明如下。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMapItem</span> &#123;</span></span><br><span class="line">    u2 type;              <span class="comment">/* kDexType开头的类型 */</span></span><br><span class="line">    u2 unused;            <span class="comment">/*未使用，用于字节对齐 */</span></span><br><span class="line">    u4 size;              <span class="comment">/* 指定类型的个数 */</span></span><br><span class="line">    u4 offset;            <span class="comment">/* 指定类型的文件偏移 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>type字段为一个枚举常量，如下所示，通过类型名称很容易判断它的具体类型。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">enum</span> &#123;</span><br><span class="line">    kDexTypeHeaderItem               = <span class="number">0x0000</span>,</span><br><span class="line">    kDexTypeStringIdItem             = <span class="number">0x0001</span>,</span><br><span class="line">    kDexTypeTypeIdItem               = <span class="number">0x0002</span>,</span><br><span class="line">    kDexTypeProtoIdItem              = <span class="number">0x0003</span>,</span><br><span class="line">    kDexTypeFieldIdItem              = <span class="number">0x0004</span>,</span><br><span class="line">    kDexTypeMethodIdItem             = <span class="number">0x0005</span>,</span><br><span class="line">    kDexTypeClassDefItem             = <span class="number">0x0006</span>,</span><br><span class="line">    kDexTypeMapList                  = <span class="number">0x1000</span>,</span><br><span class="line">    kDexTypeTypeList                 = <span class="number">0x1001</span>,</span><br><span class="line">    kDexTypeAnnotationSetRefList     = <span class="number">0x1002</span>,</span><br><span class="line">    kDexTypeAnnotationSetItem        = <span class="number">0x1003</span>,</span><br><span class="line">    kDexTypeClassDataItem            = <span class="number">0x2000</span>,</span><br><span class="line">    kDexTypeCodeItem                 = <span class="number">0x2001</span>,</span><br><span class="line">    kDexTypeStringDataItem           = <span class="number">0x2002</span>,</span><br><span class="line">    kDexTypeDebugInfoItem            = <span class="number">0x2003</span>,</span><br><span class="line">    kDexTypeAnnotationItem           = <span class="number">0x2004</span>,</span><br><span class="line">    kDexTypeEncodedArrayItem         = <span class="number">0x2005</span>,</span><br><span class="line">    kDexTypeAnnotationsDirectoryItem = <span class="number">0x2006</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>以hello.dex为例，用winhex打开文件。</p>
+<p><img src="https://github.com/JinxKing/image/raw/master/image/hello_dex.png" alt="DexHeader"></p>
+<p>在偏移0x34处找到mapOff，即MapList的偏移：0x0290</p>
+<p><img src="https://github.com/JinxKing/image/raw/master/image/hello_dex1.png" alt="DexMapItem"></p>
+<p>读取0x290处的一个双字值为0x0d，表明接下来会有13个DexMapItem。（此处占四个字节？）</p>
+<p>根据前文中提到的DexMapItem结构，一个DexMapItem占12个字节，1-2个字节表示类别，5-8个字节表示个数，9-12个字节表示偏移量。</p>
+<p>所有DexMapItem如下表：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型</th>
+<th>个数</th>
+<th>偏移</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">kDexTypeHeaderItem</td>
+<td>0x1</td>
+<td>0x0</td>
+</tr>
+<tr>
+<td style="text-align:center">kDexTypeStringIdItem</td>
+<td>0x10</td>
+<td>0x70</td>
+</tr>
+<tr>
+<td style="text-align:center">kDexTypeTypeIdItem</td>
+<td>0x7</td>
+<td>0xb0</td>
+</tr>
+<tr>
+<td style="text-align:center">kDexTypeProtoIdItem</td>
+<td>0x4</td>
+<td>0xcc</td>
+</tr>
+<tr>
+<td style="text-align:center">kDexTypeFieldIdItem</td>
+<td>0x1</td>
+<td>0xfc</td>
+</tr>
+<tr>
+<td style="text-align:center">kDexTypeMethodIdItem</td>
+<td>0x5</td>
+<td>0x104</td>
+</tr>
+<tr>
+<td style="text-align:center">kDexTypeClassDefItem</td>
+<td>0x1</td>
+<td>0x12c</td>
+</tr>
+<tr>
+<td style="text-align:center">kDexTypeCodeItem</td>
+<td>0x3</td>
+<td>0x1b4</td>
+</tr>
+<tr>
+<td style="text-align:center">kDexTypeTypeList</td>
+<td>0x3</td>
+<td>0x1ca</td>
+</tr>
+<tr>
+<td style="text-align:center">kDexTypeStringDataItem</td>
+<td>0x10</td>
+<td>0x16c</td>
+</tr>
+<tr>
+<td style="text-align:center">kDexTypeDebugInfoItem</td>
+<td>0x3</td>
+<td>0x267</td>
+</tr>
+<tr>
+<td style="text-align:center">kDexTypeClassDataItem</td>
+<td>0x1</td>
+<td>0x27b</td>
+</tr>
+<tr>
+<td style="text-align:center">kDexTypeMapList</td>
+<td>0x1</td>
+<td>0x290</td>
+</tr>
+</tbody>
+</table>
+<p>kDexTypeHeaderItem描述了DexHeader部分，它占用了文件0x70个字节的空间。而接下来的kDexTypeStringIdItem~kDexTypeClassDataItem与DexHeader当中对应的类型个数字段的值是相同的。</p>
+<h3 id="kDexTypeStringIdItem"><a href="#kDexTypeStringIdItem" class="headerlink" title="kDexTypeStringIdItem"></a>kDexTypeStringIdItem</h3><p>比如kDexTypeStringIdItem对应了DexHeader的stringIdsSize与stringIdsOff字段，表明了在0</p>
+<p>x70偏移处，有0x10个DexStringId对象。DexStringId结构的声明如下。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexStringId</span> &#123;</span></span><br><span class="line">    u4 stringDataOff;      <span class="comment">/* 字符串数据偏移 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p> DexStringId结构只有一个stringDataOff字段，直接指向字符串数据，从0x70开始，有0x10个DexStringId对象，一个对象是4个字节代表字符串偏移。一共16个字段如下：</p>
+<p><img src="https://github.com/JinxKing/image/raw/master/image/hello_dex2.png" alt="dexStringId"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">序号</th>
+<th style="text-align:center">偏移</th>
+<th>字符串</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0x0</td>
+<td style="text-align:center">0x1ca</td>
+<td><code>&lt;init&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0x1</td>
+<td style="text-align:center">0x1d2</td>
+<td><code>Hello.java</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0x2</td>
+<td style="text-align:center">0x1de</td>
+<td><code>I</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0x3</td>
+<td style="text-align:center">0x1e1</td>
+<td><code>III</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0x4</td>
+<td style="text-align:center">0x1e6</td>
+<td><code>LHello;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0x5</td>
+<td style="text-align:center">0x1ef</td>
+<td><code>Ljava/io/PrintStream;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0x6</td>
+<td style="text-align:center">0x206</td>
+<td><code>Ljava/lang/Object;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0x7</td>
+<td style="text-align:center">0x21a</td>
+<td><code>Ljava/lang/System;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0x8</td>
+<td style="text-align:center">0x22e</td>
+<td><code>V</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0x9</td>
+<td style="text-align:center">0x231</td>
+<td><code>VI</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0xa</td>
+<td style="text-align:center">0x235</td>
+<td><code>VL</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0xb</td>
+<td style="text-align:center">0x392</td>
+<td><code>[Ljava/lang/String;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0xc</td>
+<td style="text-align:center">0x24e</td>
+<td><code>foo</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0xd</td>
+<td style="text-align:center">0x253</td>
+<td><code>main</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0xe</td>
+<td style="text-align:center">0x259</td>
+<td><code>out</code></td>
+</tr>
+<tr>
+<td style="text-align:center">0xf</td>
+<td style="text-align:center">0x25e</td>
+<td><code>println</code></td>
+</tr>
+</tbody>
+</table>
+<p>上表中的字符串并非普通的ascii字符串，他们是有MUTF-8编码表示的。MUTF-8含义为Modified UTF-8。</p>
+<h3 id="kDexTypeTypeIdItem"><a href="#kDexTypeTypeIdItem" class="headerlink" title="kDexTypeTypeIdItem"></a>kDexTypeTypeIdItem</h3><p>他对应DexHeader中的typeIdsSize和typeIdsOff字段，指向的结构体为： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexTypeId</span> &#123;</span></span><br><span class="line">    u4  descriptorIdx;      <span class="comment">/* 指向DexStringId列表的索引 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>descriptorIdx</code>是指向DexStringId列表的索引 ，他对应的字符串代表具体类的类型，我们根据上面字段可知：从0xb0起有0x7个DexTypeId结构： </p>
+<p><img src="https://github.com/JinxKing/image/raw/master/image/hello_dex3.png" alt="dextypeId"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类型索引</th>
+<th style="text-align:center">字符串索引</th>
+<th style="text-align:center">字符串</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">0x2</td>
+<td style="text-align:center"><code>I</code></td>
+</tr>
+<tr>
+<td style="text-align:center">1</td>
+<td style="text-align:center">0x4</td>
+<td style="text-align:center"><code>LHello;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td style="text-align:center">0x5</td>
+<td style="text-align:center"><code>Ljava/io/PrintStream;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td style="text-align:center">0x6</td>
+<td style="text-align:center"><code>Ljava/lang/Object;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td style="text-align:center">0x7</td>
+<td style="text-align:center"><code>Ljava/lang/System;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td style="text-align:center">0x8</td>
+<td style="text-align:center"><code>V</code></td>
+</tr>
+<tr>
+<td style="text-align:center">6</td>
+<td style="text-align:center">0xb</td>
+<td style="text-align:center"><code>[Ljava/lang/String;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="kDexTypeProtoIdItem"><a href="#kDexTypeProtoIdItem" class="headerlink" title="kDexTypeProtoIdItem"></a>kDexTypeProtoIdItem</h3><p>对应DexHeader中的protoIdsSize与protoIdsOff字段，声明如下： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexProtoId</span> &#123;</span></span><br><span class="line">    u4  shortyIdx;          <span class="comment">/* 指向DexStringId列表的索引 */</span></span><br><span class="line">    u4  returnTypeIdx;      <span class="comment">/* 指向DexTypeId列表的索引 */</span></span><br><span class="line">    u4  parametersOff;      <span class="comment">/* 指向DexTypeList的偏移 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>他是一个方法的声明结构体，shortyIdx为方法声明字符串，returnTypeIdx为方法返回类型字符串，parametersOff指向一个DexTypeList的结构体存放了方法的参数列表 。DexTypeList声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span>  <span class="title">DexTypeList</span>&#123;</span></span><br><span class="line">    u4  size;               <span class="comment">/* 接下来DexTypeItem的个数 */</span></span><br><span class="line">    DexTypeItem <span class="built_in">list</span>[<span class="number">1</span>];    <span class="comment">/* DexTypeItem结构 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>DexTypeItem声明如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexTypeItem</span> &#123;</span></span><br><span class="line">    u2  typeIdx;            <span class="comment">/* 指向DexTypeId列表的索引 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>从0xcc开始，有4个DexProtoId，如表：</p>
+<p>DexProtoId结构表</p>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th>方法声明</th>
+<th>返回类型</th>
+<th>参数列表</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>III</code></td>
+<td><code>I</code></td>
+<td>2个参数<code>I</code>、<code>I</code></td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>V</code></td>
+<td><code>V</code></td>
+<td>无参数</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>VI</code></td>
+<td><code>V</code></td>
+<td>1个参数<code>I</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>VL</code></td>
+<td><code>V</code></td>
+<td>1个参数<code>[Ljava/lang/String;</code></td>
+</tr>
+</tbody>
+</table>
+<p>通过上表可以发现，方法声明由返回类型与参数列表组成，并且返回类型位于参数列表的前面。</p>
+<h3 id="kDexTypeFieldIdItem"><a href="#kDexTypeFieldIdItem" class="headerlink" title="kDexTypeFieldIdItem"></a>kDexTypeFieldIdItem</h3><p>对应DexHeader中的fieldIdsSize和fieldIdsOff字段，指向DexFieldId结构体 ：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexFieldId</span> &#123;</span></span><br><span class="line">    u2  classIdx;           <span class="comment">/* 类的类型，指向DexTypeId列表索引 */</span></span><br><span class="line">    u2  typeIdx;            <span class="comment">/* 字段类型，指向DexTypeId列表索引 */</span></span><br><span class="line">    u4  nameIdx;            <span class="comment">/* 字段名，指向DexStringId列表 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>DexFieldId结构体中的数据全部是索引值，指明了字段所在的类，字段的类型以及字段名，从0xfc开始共有1个DexFieldId结构。结果如图：</p>
+<table>
+<thead>
+<tr>
+<th>类类型</th>
+<th>字段类型</th>
+<th>字段名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Ljava/lang/System;</code></td>
+<td><code>Ljava/io/PrintStream;</code></td>
+<td><code>out</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="kDexTypeMethodIdItem"><a href="#kDexTypeMethodIdItem" class="headerlink" title="kDexTypeMethodIdItem"></a>kDexTypeMethodIdItem</h3><p>它对应DexHeader中的methodIdsSize与methodIdsOff字段，指向的结构体DexMethodId </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMethodId</span> &#123;</span></span><br><span class="line">    u2  classIdx;           <span class="comment">/* 类的类型，指向DexTypeId列表的索引 */</span></span><br><span class="line">    u2  protoIdx;           <span class="comment">/* 声明类型，指向DexProtoId列表索引 */</span></span><br><span class="line">    u4  nameIdx;            <span class="comment">/* 方法名，指向DexStringId列表的索引 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>数据也是索引，指明了方法所在的类，方法声明和方法名。从0x104有0x5个kDexTypeMethodIdItem </p>
+<table>
+<thead>
+<tr>
+<th>类类型</th>
+<th>方法声明</th>
+<th>方法名</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LHello</code></td>
+<td><code>V</code></td>
+<td><code>&lt;init&gt;</code></td>
+</tr>
+<tr>
+<td><code>LHello</code></td>
+<td><code>III</code></td>
+<td><code>foo</code></td>
+</tr>
+<tr>
+<td><code>LHello</code></td>
+<td><code>VL</code></td>
+<td><code>main</code></td>
+</tr>
+<tr>
+<td><code>Ljava/io/PrintStream;</code></td>
+<td><code>VI</code></td>
+<td><code>println</code></td>
+</tr>
+<tr>
+<td><code>Ljava/lang/Object;</code></td>
+<td><code>V</code></td>
+<td><code>&lt;init&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="kDexTypeClassDefItem"><a href="#kDexTypeClassDefItem" class="headerlink" title="kDexTypeClassDefItem"></a>kDexTypeClassDefItem</h3><p>对应DexHeader中的classDefsSize和classDefsOff字段，指向结构体DexClassDef </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexClassDef</span> &#123;</span></span><br><span class="line">    u4  classIdx;           <span class="comment">/* 类的类型，指向DexTypeId列表索引 */</span></span><br><span class="line">    u4  accessFlags;        <span class="comment">/* 访问标志 */</span></span><br><span class="line">    u4  superclassIdx;      <span class="comment">/* 父类的类型，指向DexTypeId列表的索引 */</span></span><br><span class="line">    u4  interfacesOff;      <span class="comment">/* 实现了哪些接口，指向DexTypeList结构的偏移 */</span></span><br><span class="line">    u4  sourceFileIdx;      <span class="comment">/* 源文件名，指向DexStringId列表的索引 */</span></span><br><span class="line">    u4  annotationsOff;     <span class="comment">/* 注解，指向DexAnnotationsDirectoryItem结构的偏移 */</span></span><br><span class="line">    u4  classDataOff;       <span class="comment">/* 指向DexClassData结构的偏移 */</span></span><br><span class="line">    u4  staticValuesOff;    <span class="comment">/* 指向DexEncodedArray结构的偏移 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>classIdx</code>：索引值，表明类的类型</li>
+<li><code>accessFlags</code>：类的访问标志，它是以<code>ACC_</code>开头的一个枚举值</li>
+<li><code>superclassIdx</code>：父类类型索引值，</li>
+<li><code>interfacesOff</code>：如果类中含有接口声明或实现，字段会指向1个DexTypeList结构，否则这里为0</li>
+<li><code>sourceFileIdx</code> ：字符串索引值，表示类所在的源文件名称</li>
+<li><code>annotationsOff</code> ：指向注解目录结构</li>
+<li><code>classDataOff</code> ：指向DexClassData结构，这是数据部分</li>
+<li><code>staticValuesOff</code> ：指向DexEncodedArray结构，记录了类中的静态数据</li>
+</ul>
+<h3 id="DexClassData"><a href="#DexClassData" class="headerlink" title="DexClassData"></a>DexClassData</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexClassData</span> &#123;</span></span><br><span class="line">    DexClassDataHeader header; <span class="comment">//指向DexClassDataHeader，字段和方法个数</span></span><br><span class="line">    DexField*          staticFields; <span class="comment">//静态字段</span></span><br><span class="line">    DexField*          instanceFields; <span class="comment">//实例字段</span></span><br><span class="line">    DexMethod*         directMethods; <span class="comment">//直接方法</span></span><br><span class="line">    DexMethod*         virtualMethods;<span class="comment">//虚方法</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="DexClassDataHeader"><a href="#DexClassDataHeader" class="headerlink" title="DexClassDataHeader"></a>DexClassDataHeader</h3><p>记录了当前类中的字段和方法的数目，声明如下： </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexClassDataHeader</span> &#123;</span></span><br><span class="line">    u4 staticFieldsSize; <span class="comment">//静态字段个数</span></span><br><span class="line">    u4 instanceFieldsSize;<span class="comment">//实例字段个数</span></span><br><span class="line">    u4 directMethodsSize;<span class="comment">//直接方法个数</span></span><br><span class="line">    u4 virtualMethodsSize;<span class="comment">//虚方法个数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="DexField"><a href="#DexField" class="headerlink" title="DexField"></a>DexField</h3><p>描述了字段类型与访问标志，声明如下:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexField</span> &#123;</span></span><br><span class="line">    u4 fieldIdx;    <span class="comment">/* 指向DexFieldId列表的索引 */</span></span><br><span class="line">    u4 accessFlags; <span class="comment">/* 访问标志 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="DexMethod"><a href="#DexMethod" class="headerlink" title="DexMethod"></a>DexMethod</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexMethod</span> &#123;</span></span><br><span class="line">    u4 methodIdx;    <span class="comment">/* 指向DexMethodId列表的索引 */</span></span><br><span class="line">    u4 accessFlags;  <span class="comment">/* 访问标志 */</span></span><br><span class="line">    u4 codeOff;      <span class="comment">/* 指向DexCode结构的偏移 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>codeOff字段指向一个DexCode结构体，声明如下：</p>
+<p>/dalvik/libdex/DexFile.h</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DexCode</span> &#123;</span></span><br><span class="line">    u2  registersSize;<span class="comment">//使用寄存器个数</span></span><br><span class="line">    u2  insSize;<span class="comment">//参数个数</span></span><br><span class="line">    u2  outsSize;<span class="comment">//调用其他方法时使用的寄存器个数</span></span><br><span class="line">    u2  triesSize;<span class="comment">//try/catch个数</span></span><br><span class="line">    u4  debugInfoOff;<span class="comment">//指向调试信息的偏移</span></span><br><span class="line">    u4  insnsSize;<span class="comment">//指令集个数，以2字节为单位</span></span><br><span class="line">    u2  insns[<span class="number">1</span>];<span class="comment">//指令集</span></span><br><span class="line">    <span class="comment">/* followed by optional u2 padding */</span></span><br><span class="line">    <span class="comment">/* followed by try_item[triesSize] */</span></span><br><span class="line">    <span class="comment">/* followed by uleb handlersSize */</span></span><br><span class="line">    <span class="comment">/* followed by catch_handler_item[handlersSize] */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android逆向/" rel="tag"># Android逆向</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/17/Dalvik字节码/" rel="next" title="Dalvik字节码">
+                <i class="fa fa-chevron-left"></i> Dalvik字节码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/default_avatar.png"
+                alt="Jinx" />
+            
+              <p class="site-author-name" itemprop="name">Jinx</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#dex文件中的数据结构"><span class="nav-number">1.</span> <span class="nav-text">dex文件中的数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dex文件整体结构"><span class="nav-number">2.</span> <span class="nav-text">dex文件整体结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dex文件结构分析"><span class="nav-number">3.</span> <span class="nav-text">dex文件结构分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DexMapItem"><span class="nav-number">3.1.</span> <span class="nav-text">DexMapItem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kDexTypeStringIdItem"><span class="nav-number">3.2.</span> <span class="nav-text">kDexTypeStringIdItem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kDexTypeTypeIdItem"><span class="nav-number">3.3.</span> <span class="nav-text">kDexTypeTypeIdItem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kDexTypeProtoIdItem"><span class="nav-number">3.4.</span> <span class="nav-text">kDexTypeProtoIdItem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kDexTypeFieldIdItem"><span class="nav-number">3.5.</span> <span class="nav-text">kDexTypeFieldIdItem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kDexTypeMethodIdItem"><span class="nav-number">3.6.</span> <span class="nav-text">kDexTypeMethodIdItem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#kDexTypeClassDefItem"><span class="nav-number">3.7.</span> <span class="nav-text">kDexTypeClassDefItem</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DexClassData"><span class="nav-number">3.8.</span> <span class="nav-text">DexClassData</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DexClassDataHeader"><span class="nav-number">3.9.</span> <span class="nav-text">DexClassDataHeader</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DexField"><span class="nav-number">3.10.</span> <span class="nav-text">DexField</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DexMethod"><span class="nav-number">3.11.</span> <span class="nav-text">DexMethod</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jinx</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
