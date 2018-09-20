@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="paper of intent," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="见证学习与成长">
+<meta name="description" content="工作总体概括为两部分：  利用Hadoop框架上的MapReduce处理算法，并行处理ICC。应标题的MR。 对所有app构建Graph，进行neighbor-aware安全风险分析。  基于Hadoop框架来缩短处理ICC的时间是效率问题，下面着重谈一下这篇文章的neighbor-aware安全风险分析。">
+<meta name="keywords" content="paper of intent">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MRDroid">
 <meta property="og:url" content="http://yoursite.com/2018/09/20/MRDroid/index.html">
 <meta property="og:site_name" content="Jinx&#39;blog">
-<meta property="og:description" content="见证学习与成长">
+<meta property="og:description" content="工作总体概括为两部分：  利用Hadoop框架上的MapReduce处理算法，并行处理ICC。应标题的MR。 对所有app构建Graph，进行neighbor-aware安全风险分析。  基于Hadoop框架来缩短处理ICC的时间是效率问题，下面着重谈一下这篇文章的neighbor-aware安全风险分析。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-20T11:22:19.851Z">
+<meta property="og:updated_time" content="2018-09-20T11:24:15.712Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="MRDroid">
-<meta name="twitter:description" content="见证学习与成长">
+<meta name="twitter:description" content="工作总体概括为两部分：  利用Hadoop框架上的MapReduce处理算法，并行处理ICC。应标题的MR。 对所有app构建Graph，进行neighbor-aware安全风险分析。  基于Hadoop框架来缩短处理ICC的时间是效率问题，下面着重谈一下这篇文章的neighbor-aware安全风险分析。">
 
 
 
@@ -309,7 +310,55 @@
       
 
       
-        
+        <h2 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h2><p>总体概括为两部分：</p>
+<ul>
+<li>利用Hadoop框架上的MapReduce处理算法，并行处理ICC。应标题的MR。</li>
+<li>对所有app构建Graph，进行neighbor-aware安全风险分析。</li>
+</ul>
+<p>基于Hadoop框架来缩短处理ICC的时间是效率问题，下面着重谈一下这篇文章的neighbor-aware安全风险分析。<br><a id="more"></a><br>作者选取了5个特征分别是：</p>
+<ol>
+<li>Data linkage。app的有关icc连接是否携带数据</li>
+<li>Permission leakage。icc连接是否涉及权限泄露</li>
+<li>Priority distribution。出/入连接优先级的平均值和标准偏差</li>
+<li>Link ambiguity。显式调用其他component的时候没有写明包名</li>
+<li>Connectivity。icc数量或者连接的app的数量</li>
+</ol>
+<p>根据这5个特征来计算app的风险值，涉及的风险行为是，intent劫持、intent欺骗和联合攻击。</p>
+<h3 id="劫持-欺骗风险"><a href="#劫持-欺骗风险" class="headerlink" title="劫持/欺骗风险"></a>劫持/欺骗风险</h3><p>把所有app分成三类：低风险，中等和高风险。使落在这三个区域的app符合正态分布。这里的区间是.1,.5,1.0</p>
+<p><strong>劫持</strong></p>
+<p>显式intent只考虑Link ambiguity，隐式intent只考虑发送出去intent的相关特征。</p>
+<p>具体算法如下：</p>
+<ul>
+<li>如果Link ambiguity &gt;= 1 或者 Priority很高（mean+STD&gt;=500，这里没有看懂..）那么它的风险就很高然后退出。</li>
+<li>给data linkage,<br>permission leakage, app-level connectivity,  link-level connectivity, 分配权值 .3, .4, .2, .1（这里也没说明白为什么这么分）。然后把所有特征值和权值的计算结果相加，看落在哪个区间里。</li>
+</ul>
+<p><strong>欺骗</strong></p>
+<p>相应地，只考虑接受intent的相关特征。考虑到显式intent的欺骗更容易成功，就把显式link的权值提高。</p>
+<p>具体算法如下：</p>
+<ul>
+<li>Priority很高（mean+STD&gt;=500，这里没有看懂..）那么它的风险就很高然后退出。</li>
+<li>permission<br>leakage, app-level connectivity, link-level connectivity for explicit links 分配权值 .4, .2, and .2 (total of .8). 计算结果，看落在哪个区间。</li>
+</ul>
+<h3 id="联合攻击"><a href="#联合攻击" class="headerlink" title="联合攻击"></a>联合攻击</h3><p>考虑link进口和出口，显式intent和隐式intent。并且，因为显式link表示联合是有目的的，就把显式link的权值分配高于隐式。风险计算如下：</p>
+<ul>
+<li>对于连接，权值分配如下：5-单项的显式连接（一个app通过显式ICC连接，但是另一个app通过隐式ICC连接）；10-双向显式连接；3-双向隐式连接。对于数据泄露，3-带数据的显式连接；2-带数据的隐式连接。最后，3-权限泄露。</li>
+<li>计算综合，区间[1,16]（这里的权值和区间也没有解释清楚）</li>
+</ul>
+<h2 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h2><p><strong>数据集</strong>:11996个谷歌应用市场的app</p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p>对谷歌应用市场的app分析，得到不同类别下的结果</p>
+<p>对BenchDroid3.0数据集下的应用分析，结果是6个联合攻击的风险很高，2个intent劫持分析很高。</p>
+<h3 id="手工验证"><a href="#手工验证" class="headerlink" title="手工验证"></a>手工验证</h3><p><strong>数据集</strong>：选择了200个应用。分别从7个攻击类别和3个风险等级中随机选择10个。类别中应用少于10个的全部选择。</p>
+<p><strong>验证方法</strong></p>
+<ul>
+<li>静态检查每个app的intent属性，手工匹配相邻app</li>
+<li>动态验证：在Android模拟器中运行app对，观察日志中的可疑行为。</li>
+</ul>
+<h3 id="攻击案例研究"><a href="#攻击案例研究" class="headerlink" title="攻击案例研究"></a>攻击案例研究</h3><p><strong>通过隐式intent的隐蔽联合攻击</strong><br>一些联合攻击的app通过隐式intent，并定制action和category，来避免其他app意外打断他们的交流。</p>
+<p><strong>自动生成的app的风险</strong><br>作者发现很多高危app是由一些网站自动生成的。这些app会发送大量的intent，试图复用其他app的功能。</p>
+<p><strong>第三方的劫持漏洞</strong><br>某库发送隐式intent访问外部网站，恶意应用可以劫持intent，重定向访问一个钓鱼网站窃取用户密码。</p>
+<p><strong>同一作者开发的联合app</strong> 在一些联合app案例中，两个app出自同一开发者，两个app通过intent来交互。</p>
+<p><strong>同一作者开发的app交互时通过不安全的接口</strong><br>安全的做法是使用 ShareUserId link</p>
+
       
     </div>
     
@@ -323,6 +372,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/paper-of-intent/" rel="tag"># paper of intent</a>
+          
+        </div>
       
 
       
@@ -403,8 +458,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -436,7 +500,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">tags</span>
                 
               </div>
@@ -475,6 +539,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#工作"><span class="nav-number">1.</span> <span class="nav-text">工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#劫持-欺骗风险"><span class="nav-number">1.1.</span> <span class="nav-text">劫持/欺骗风险</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联合攻击"><span class="nav-number">1.2.</span> <span class="nav-text">联合攻击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评估"><span class="nav-number">2.</span> <span class="nav-text">评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验结果"><span class="nav-number">2.1.</span> <span class="nav-text">实验结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手工验证"><span class="nav-number">2.2.</span> <span class="nav-text">手工验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击案例研究"><span class="nav-number">2.3.</span> <span class="nav-text">攻击案例研究</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
