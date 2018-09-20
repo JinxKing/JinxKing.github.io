@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="tools," />
+  <meta name="keywords" content="paper of intent," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="记录本博客搭建过程。用hexo + github搭建个人博客，博客主题为Next。">
-<meta name="keywords" content="tools">
+<meta name="description" content="工作总体概括为两部分：  利用Hadoop框架上的MapReduce处理算法，并行处理ICC。应标题的MR。 对所有app构建Graph，进行neighbor-aware安全风险分析。  基于Hadoop框架来缩短处理ICC的时间是效率问题，下面着重谈一下这篇文章的neighbor-aware安全风险分析。">
+<meta name="keywords" content="paper of intent">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo + github 搭建个人blog">
-<meta property="og:url" content="http://yoursite.com/2018/09/17/hexo + github 搭建个人blog/index.html">
+<meta property="og:title" content="A Scalable and Prioritized Analysis of Inter-App Communication Risks">
+<meta property="og:url" content="http://yoursite.com/2018/09/20/MRDroid/index.html">
 <meta property="og:site_name" content="Jinx&#39;blog">
-<meta property="og:description" content="记录本博客搭建过程。用hexo + github搭建个人博客，博客主题为Next。">
+<meta property="og:description" content="工作总体概括为两部分：  利用Hadoop框架上的MapReduce处理算法，并行处理ICC。应标题的MR。 对所有app构建Graph，进行neighbor-aware安全风险分析。  基于Hadoop框架来缩短处理ICC的时间是效率问题，下面着重谈一下这篇文章的neighbor-aware安全风险分析。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-09-17T09:48:14.715Z">
+<meta property="og:updated_time" content="2018-09-20T11:27:12.353Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo + github 搭建个人blog">
-<meta name="twitter:description" content="记录本博客搭建过程。用hexo + github搭建个人博客，博客主题为Next。">
+<meta name="twitter:title" content="A Scalable and Prioritized Analysis of Inter-App Communication Risks">
+<meta name="twitter:description" content="工作总体概括为两部分：  利用Hadoop框架上的MapReduce处理算法，并行处理ICC。应标题的MR。 对所有app构建Graph，进行neighbor-aware安全风险分析。  基于Hadoop框架来缩短处理ICC的时间是效率问题，下面着重谈一下这篇文章的neighbor-aware安全风险分析。">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/17/hexo + github 搭建个人blog/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/20/MRDroid/"/>
 
 
 
 
 
-  <title>hexo + github 搭建个人blog | Jinx'blog</title>
+  <title>A Scalable and Prioritized Analysis of Inter-App Communication Risks | Jinx'blog</title>
   
 
 
@@ -233,7 +233,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/hexo + github 搭建个人blog/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/20/MRDroid/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jinx">
@@ -250,7 +250,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">hexo + github 搭建个人blog</h1>
+          <h1 class="post-title" itemprop="name headline">A Scalable and Prioritized Analysis of Inter-App Communication Risks</h1>
         
 
         <div class="post-meta">
@@ -262,8 +262,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-17T15:24:26+08:00">
-                2018-09-17
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-20T19:22:19+08:00">
+                2018-09-20
               </time>
             
 
@@ -281,8 +281,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/09/17/hexo + github 搭建个人blog/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/09/17/hexo + github 搭建个人blog/" itemprop="commentCount"></span>
+                <a href="/2018/09/20/MRDroid/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/09/20/MRDroid/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -310,33 +310,54 @@
       
 
       
-        <p>记录本博客搭建过程。<br>用hexo + github搭建个人博客，博客主题为Next。<br><a id="more"></a></p>
-<h2 id="搭建平台"><a href="#搭建平台" class="headerlink" title="搭建平台"></a>搭建平台</h2><ol>
-<li>安装Node.js，<a href="https://nodejs.org/en/" target="_blank" rel="noopener">官网连接</a></li>
-<li>安装Git</li>
-<li>安装hexo，打开cmd命令如下: <code>$ npm install -g hexo-cli</code></li>
-</ol>
-<p>安装hexo出现了问题，提示权限拒绝。<br>解决方法：</p>
+        <h2 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h2><p>总体概括为两部分：</p>
 <ul>
-<li>使用淘宝镜像<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-</li>
+<li>利用Hadoop框架上的MapReduce处理算法，并行处理ICC。应标题的MR。</li>
+<li>对所有app构建Graph，进行neighbor-aware安全风险分析。</li>
 </ul>
-<p><a href="https://blog.csdn.net/ifreeboard/article/details/53314451" target="_blank" rel="noopener">解决方法</a></p>
-<h2 id="建站"><a href="#建站" class="headerlink" title="建站"></a>建站</h2><p>安装 Hexo 完成后，请执行下列命令，Hexo 将会在指定文件夹中新建所需要的文件。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init &lt;folder&gt;</span><br><span class="line">$ cd &lt;folder&gt;</span><br><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
-<p>新建完成后，指定文件夹的目录如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── _config.yml</span><br><span class="line">├── package.json</span><br><span class="line">├── scaffolds</span><br><span class="line">├── source</span><br><span class="line">|   ├── _drafts</span><br><span class="line">|   └── _posts</span><br><span class="line">└── themes</span><br></pre></td></tr></table></figure></p>
-<p>详细配置信息见<a href="https://hexo.io/zh-cn/docs/setup" target="_blank" rel="noopener">Hexo官方</a></p>
-<h2 id="将博客与Github关联"><a href="#将博客与Github关联" class="headerlink" title="将博客与Github关联"></a>将博客与Github关联</h2><p>在<code>Github</code>上创建名字为<code>XXX.github.io</code>的项目，<code>XXX</code>为自己的<code>github</code>用户名,添加<code>SSH</code>公钥到<code>Account settings -&gt; SSH Keys -&gt; Add SSH Key</code>,打开本地的项目内的<code>_config.yml</code>配置文件，找d到<code>deploy</code>字段,将其中的<code>type</code>设置为<code>git</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repository: https://github.com/yourname/yourname.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure></p>
-<p>命令行：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git –save</span><br><span class="line">$ hexo g（本地生成静态文件）</span><br><span class="line">$ hexo d（将本地静态文件推送至Github）</span><br></pre></td></tr></table></figure></p>
-<p>访问<code>http://JinxKing.github.io</code></p>
-<h2 id="更新文章"><a href="#更新文章" class="headerlink" title="更新文章"></a>更新文章</h2><p>在项目目录下执行：hexo new “我的第一篇文章”，会在source-&gt;_posts文件夹内生成一个.md文件。编辑该文件（遵循Markdown规则）修改起始字段:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title 文章的标题</span><br><span class="line">date 创建日期 （文件的创建日期 ）</span><br><span class="line">tags 标签</span><br><span class="line">categories 分类</span><br><span class="line">编写正文内容（MakeDown）</span><br></pre></td></tr></table></figure></p>
-<p>编写完，执行即可部署到github<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo d -g</span><br></pre></td></tr></table></figure></p>
-<h2 id="github做Markdown图床"><a href="#github做Markdown图床" class="headerlink" title="github做Markdown图床"></a>github做Markdown图床</h2><p>在github上新建一个repository，将图片传入。</p>
-<p>网页浏览复制图片URL，如：<br><code>https://github.com/zhanghlHUST/figureForMarkdown/blob/master/17_urllib_parse_urlparse.JPG</code><br>那么，外接连接就是将<code>/blob/</code>改成<code>/raw/</code>：<br><code>https://github.com/zhanghlHUST/figureForMarkdown/raw/master/17_urllib_parse_urlparse.JPG</code></p>
-<p><a href="https://www.jianshu.com/p/33eeacac3344" target="_blank" rel="noopener">参考博客</a></p>
-<h2 id="blog主题"><a href="#blog主题" class="headerlink" title="blog主题"></a>blog主题</h2><p>用的主题是：<a href="https://github.com/iissnan/hexo-theme-next/blob/master/README.cn.md" target="_blank" rel="noopener">Next</a></p>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>$ git clone https://github.com/iissnan/hexo-theme-next themes/next</code></p>
-<h3 id="启动主题"><a href="#启动主题" class="headerlink" title="启动主题"></a>启动主题</h3><p>在配置文件中更改选项 <code>theme: next</code></p>
-<p>其他主题配置参考：<a href="https://www.jianshu.com/p/5e9bd5e39ae6" target="_blank" rel="noopener">最简便的方法搭建Hexo-Github博客-基于Next主题</a></p>
+<p>基于Hadoop框架来缩短处理ICC的时间是效率问题，下面着重谈一下这篇文章的neighbor-aware安全风险分析。<br><a id="more"></a><br>作者选取了5个特征分别是：</p>
+<ol>
+<li>Data linkage。app的有关icc连接是否携带数据</li>
+<li>Permission leakage。icc连接是否涉及权限泄露</li>
+<li>Priority distribution。出/入连接优先级的平均值和标准偏差</li>
+<li>Link ambiguity。显式调用其他component的时候没有写明包名</li>
+<li>Connectivity。icc数量或者连接的app的数量</li>
+</ol>
+<p>根据这5个特征来计算app的风险值，涉及的风险行为是，intent劫持、intent欺骗和联合攻击。</p>
+<h3 id="劫持-欺骗风险"><a href="#劫持-欺骗风险" class="headerlink" title="劫持/欺骗风险"></a>劫持/欺骗风险</h3><p>把所有app分成三类：低风险，中等和高风险。使落在这三个区域的app符合正态分布。这里的区间是.1,.5,1.0</p>
+<p><strong>劫持</strong></p>
+<p>显式intent只考虑Link ambiguity，隐式intent只考虑发送出去intent的相关特征。</p>
+<p>具体算法如下：</p>
+<ul>
+<li>如果Link ambiguity &gt;= 1 或者 Priority很高（mean+STD&gt;=500，这里没有看懂..）那么它的风险就很高然后退出。</li>
+<li>给data linkage,<br>permission leakage, app-level connectivity,  link-level connectivity, 分配权值 .3, .4, .2, .1（这里也没说明白为什么这么分）。然后把所有特征值和权值的计算结果相加，看落在哪个区间里。</li>
+</ul>
+<p><strong>欺骗</strong></p>
+<p>相应地，只考虑接受intent的相关特征。考虑到显式intent的欺骗更容易成功，就把显式link的权值提高。</p>
+<p>具体算法如下：</p>
+<ul>
+<li>Priority很高（mean+STD&gt;=500，这里没有看懂..）那么它的风险就很高然后退出。</li>
+<li>permission<br>leakage, app-level connectivity, link-level connectivity for explicit links 分配权值 .4, .2, and .2 (total of .8). 计算结果，看落在哪个区间。</li>
+</ul>
+<h3 id="联合攻击"><a href="#联合攻击" class="headerlink" title="联合攻击"></a>联合攻击</h3><p>考虑link进口和出口，显式intent和隐式intent。并且，因为显式link表示联合是有目的的，就把显式link的权值分配高于隐式。风险计算如下：</p>
+<ul>
+<li>对于连接，权值分配如下：5-单项的显式连接（一个app通过显式ICC连接，但是另一个app通过隐式ICC连接）；10-双向显式连接；3-双向隐式连接。对于数据泄露，3-带数据的显式连接；2-带数据的隐式连接。最后，3-权限泄露。</li>
+<li>计算综合，区间[1,16]（这里的权值和区间也没有解释清楚）</li>
+</ul>
+<h2 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h2><p><strong>数据集</strong>:11996个谷歌应用市场的app</p>
+<h3 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h3><p>对谷歌应用市场的app分析，得到不同类别下的结果</p>
+<p>对BenchDroid3.0数据集下的应用分析，结果是6个联合攻击的风险很高，2个intent劫持分析很高。</p>
+<h3 id="手工验证"><a href="#手工验证" class="headerlink" title="手工验证"></a>手工验证</h3><p><strong>数据集</strong>：选择了200个应用。分别从7个攻击类别和3个风险等级中随机选择10个。类别中应用少于10个的全部选择。</p>
+<p><strong>验证方法</strong></p>
+<ul>
+<li>静态检查每个app的intent属性，手工匹配相邻app</li>
+<li>动态验证：在Android模拟器中运行app对，观察日志中的可疑行为。</li>
+</ul>
+<h3 id="攻击案例研究"><a href="#攻击案例研究" class="headerlink" title="攻击案例研究"></a>攻击案例研究</h3><p><strong>通过隐式intent的隐蔽联合攻击</strong><br>一些联合攻击的app通过隐式intent，并定制action和category，来避免其他app意外打断他们的交流。</p>
+<p><strong>自动生成的app的风险</strong><br>作者发现很多高危app是由一些网站自动生成的。这些app会发送大量的intent，试图复用其他app的功能。</p>
+<p><strong>第三方的劫持漏洞</strong><br>某库发送隐式intent访问外部网站，恶意应用可以劫持intent，重定向访问一个钓鱼网站窃取用户密码。</p>
+<p><strong>同一作者开发的联合app</strong> 在一些联合app案例中，两个app出自同一开发者，两个app通过intent来交互。</p>
+<p><strong>同一作者开发的app交互时通过不安全的接口</strong><br>安全的做法是使用 ShareUserId link</p>
 
       
     </div>
@@ -354,7 +375,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/tools/" rel="tag"># tools</a>
+            <a href="/tags/paper-of-intent/" rel="tag"># paper of intent</a>
           
         </div>
       
@@ -367,8 +388,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/17/dex文件格式/" rel="next" title="dex文件格式">
-                <i class="fa fa-chevron-left"></i> dex文件格式
+              <a href="/2018/09/17/hexo + github 搭建个人blog/" rel="next" title="hexo + github 搭建个人blog">
+                <i class="fa fa-chevron-left"></i> hexo + github 搭建个人blog
               </a>
             
           </div>
@@ -376,10 +397,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/20/MRDroid/" rel="prev" title="A Scalable and Prioritized Analysis of Inter-App Communication Risks">
-                A Scalable and Prioritized Analysis of Inter-App Communication Risks <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -413,8 +430,8 @@
 
   
     <div class="comments" id="comments">
-      <div class="ds-thread" data-thread-key="2018/09/17/hexo + github 搭建个人blog/"
-           data-title="hexo + github 搭建个人blog" data-url="http://yoursite.com/2018/09/17/hexo + github 搭建个人blog/">
+      <div class="ds-thread" data-thread-key="2018/09/20/MRDroid/"
+           data-title="A Scalable and Prioritized Analysis of Inter-App Communication Risks" data-url="http://yoursite.com/2018/09/20/MRDroid/">
       </div>
     </div>
 
@@ -532,7 +549,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建平台"><span class="nav-number">1.</span> <span class="nav-text">搭建平台</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建站"><span class="nav-number">2.</span> <span class="nav-text">建站</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将博客与Github关联"><span class="nav-number">3.</span> <span class="nav-text">将博客与Github关联</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新文章"><span class="nav-number">4.</span> <span class="nav-text">更新文章</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#github做Markdown图床"><span class="nav-number">5.</span> <span class="nav-text">github做Markdown图床</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#blog主题"><span class="nav-number">6.</span> <span class="nav-text">blog主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">6.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动主题"><span class="nav-number">6.2.</span> <span class="nav-text">启动主题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#工作"><span class="nav-number">1.</span> <span class="nav-text">工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#劫持-欺骗风险"><span class="nav-number">1.1.</span> <span class="nav-text">劫持/欺骗风险</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联合攻击"><span class="nav-number">1.2.</span> <span class="nav-text">联合攻击</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#评估"><span class="nav-number">2.</span> <span class="nav-text">评估</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实验结果"><span class="nav-number">2.1.</span> <span class="nav-text">实验结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#手工验证"><span class="nav-number">2.2.</span> <span class="nav-text">手工验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#攻击案例研究"><span class="nav-number">2.3.</span> <span class="nav-text">攻击案例研究</span></a></li></ol></li></ol></div>
             
 
           </div>
