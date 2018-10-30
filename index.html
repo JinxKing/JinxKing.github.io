@@ -312,8 +312,7 @@
 
       
         
-          
-            <h1 id="配置SDK环境"><a href="#配置SDK环境" class="headerlink" title="配置SDK环境"></a>配置SDK环境</h1><p>安装环境：</p>
+          <h1 id="配置SDK环境"><a href="#配置SDK环境" class="headerlink" title="配置SDK环境"></a>配置SDK环境</h1><p>安装环境：</p>
 <ol>
 <li>JDK</li>
 <li>Android SDK</li>
@@ -322,46 +321,14 @@
 </ol>
 <h2 id="Java环境配置"><a href="#Java环境配置" class="headerlink" title="Java环境配置"></a>Java环境配置</h2><p>在Oracle官网下载JDK（至少1.7，apktool需要1.7）  </p>
 <p>将安装包解压到<code>/home/Android/java</code>目录下  </p>
-<p>配置Java环境变量，这一步在配置SDK环境时一起配置</p>
-<h2 id="安装SDK"><a href="#安装SDK" class="headerlink" title="安装SDK"></a>安装SDK</h2><p>在<a href="http://www.androiddevtools.cn/#sdk-tools" target="_blank" rel="noopener">连接</a>下载<strong>android-sdk_r24.4.1-linux.tgz</strong>，解压到/home/Android/sdk目录下</p>
-<p>配置SDK环境变量：  </p>
-<p>首先用<code>pwd</code>命令查看当前路径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pwd</span><br></pre></td></tr></table></figure></p>
-<p><img src="https://github.com/JinxKing/image/raw/master/image/droidbox_install_1.png" alt="pwd命令查看当前路径"></p>
-<p>打开<code>~/.bashrc</code>文件，添加PATH路径：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo gedit ~/.bashrc</span><br></pre></td></tr></table></figure></p>
-<p>在末尾添加路径，参考<code>pwd</code>输出路径<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/home/jinxking/Android/java/jdk1.8.0_191</span><br><span class="line">export JRE_HOME=$&#123;JAVA_HOME&#125;/jre</span><br><span class="line">export CLASSPATH=.:$&#123;JAVA_HOME&#125;/lib:$&#123;JRE_HOME&#125;/lib</span><br><span class="line">export PATH=$&#123;JAVA_HOME&#125;/bin:$PATH</span><br><span class="line">export PATH=/home/jinxking/Android/sdk/android-sdk-linux/tools:$PATH</span><br><span class="line">export PATH=/home/jinxking/Android/sdk/android-sdk-linux/platform-tools:$PATH</span><br></pre></td></tr></table></figure></p>
-<p>保存关闭该文件，执行命令：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ source ~/.bashrc</span><br></pre></td></tr></table></figure></p>
-<p>在任意路径下执行<code>android</code>命令，打开sdk manager。</p>
-<p>下载sdk镜像，勾选选项如下：<br><img src="https://github.com/JinxKing/image/raw/master/image/droidbox_install_2.png" alt="勾选选项"><br><img src="https://github.com/JinxKing/image/raw/master/image/droidbox_install_3.png" alt="勾选选项"></p>
-<p>没有翻墙，platform下载不下来，可以设置代理，方法如下：<br>鼠标移动到ubuntu界面左上方，就会显示tools的窗口<br><img src="https://img-blog.csdn.net/20161014154811127?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="tools的窗口"></p>
-<p>选择option<br><img src="https://img-blog.csdn.net/20161014155001379?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="设置代理"></p>
-<h2 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h2><p>同样在右上角的tools窗口，选择Manage AVDs</p>
-<p>点击create创建一个虚拟机，配置参考<br><img src="https://img-blog.csdn.net/20161014161753269?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="创建虚拟机"><br>我的skin 选择的是 WXGA720</p>
-<p>创建完毕，运行，命令是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emulator -avd droid</span><br></pre></td></tr></table></figure></p>
-<h1 id="配置Droidbox部分"><a href="#配置Droidbox部分" class="headerlink" title="配置Droidbox部分"></a>配置Droidbox部分</h1><p>安装python依赖库pylab和matplotlib<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo apt-get install python-matplotlib</span><br></pre></td></tr></table></figure></p>
-<p>下载droidbox压缩包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/pjlantz/droidbox/releases/download/v4.1.1/DroidBox411RC.tar.gz</span><br></pre></td></tr></table></figure></p>
-<p>解压到目录<code>/home/Android/droidbox</code>中</p>
-<p>进入DroidBox_4.1.1目录执行里面的./startemu.sh脚本，执行脚本之前需要把avd关闭，这个脚本主要就是使用image文件夹下提供的镜像启动虚拟机。命令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./startemu.sh droid</span><br></pre></td></tr></table></figure></p>
-<p>在DroidBox_4.1.1目录下，执行./droidbox脚本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./droidbox &lt;file apk&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="DroidBox使用"><a href="#DroidBox使用" class="headerlink" title="DroidBox使用"></a>DroidBox使用</h2><p>ctrl-c 停止Droidbox</p>
-<p>查看droidbox的日志<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb logcat -s &quot;DroidBox&quot;</span><br></pre></td></tr></table></figure></p>
-<h2 id="APIMonitor"><a href="#APIMonitor" class="headerlink" title="APIMonitor"></a>APIMonitor</h2><p>需要的环境：</p>
-<ul>
-<li>Linux/Unix/MacOSX</li>
-<li>JRE</li>
-<li>python 2.7</li>
-<li>command “jarsigner” must work in your system</li>
-</ul>
-<p>先输入命令，确定环境<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ python</span><br><span class="line">$ jarsigner</span><br></pre></td></tr></table></figure></p>
-<p>从github上下载APIMonitor<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget https://github.com/pjlantz/droidbox/releases/download/beta.3/APIMonitor-beta3.tar.gz</span><br></pre></td></tr></table></figure></p>
-<p>在APIMonitor-beta目录下执行./apimonitor.py，重打包apk（监视的api已被插入日志代码）<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./apimonitor.py example/APKILTests.apk</span><br></pre></td></tr></table></figure></p>
-<p>最后在模拟器上运行重打包过的apk，查看droidbox日志。</p>
-<p> <code>-h</code>查看使用<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> $ ./apimonitor.py -h</span><br><span class="line"></span><br><span class="line">usage: apimonitor.py [-h] [-o, --output dirpath] [-l, --level level] [-a, --api apilist] [-v, --version] filename</span><br><span class="line"></span><br><span class="line">Repackage apk to monitor arbitrary APIs.</span><br><span class="line"></span><br><span class="line">positional arguments:</span><br><span class="line">  filename              path of APK file</span><br><span class="line"></span><br><span class="line">optional arguments:</span><br><span class="line">  -h, --help            show this help message and exit</span><br><span class="line">  -o, --output dirpath  output directory</span><br><span class="line">  -l, --level level     target API level for instrumentation</span><br><span class="line">  -a, --api apilist     config file of API list</span><br><span class="line">  -v, --version         show program&apos;s version number and exit</span><br></pre></td></tr></table></figure></p>
-<p>监视的api列表在<code>config/default_api_collection</code>文件中</p>
-<p>可以自行修改列表，只需将一组方法签名放在文件中。</p>
-<p>有三种签名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Signature of one method</span><br><span class="line">Landroid/content/ContextWrapper;-&gt;openFileInput(Ljava/lang/String;)</span><br><span class="line"></span><br><span class="line"># Signature of methods with the same name </span><br><span class="line">Landroid/content/Intent;-&gt;&lt;init&gt;</span><br><span class="line"></span><br><span class="line"># Signature of all methods of the same class </span><br><span class="line">Landroid/content/ContentResolver;</span><br></pre></td></tr></table></figure></p>
-<p>参考：<br><a href="https://blog.csdn.net/u012195899/article/details/52814013" target="_blank" rel="noopener">https://blog.csdn.net/u012195899/article/details/52814013</a><br><a href="https://github.com/pjlantz/droidbox/wiki/APIMonitor" target="_blank" rel="noopener">https://github.com/pjlantz/droidbox/wiki/APIMonitor</a></p>
-
-          
+<p>配置Java环境变量，这一步在配置SDK环境时一起配置<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/10/30/在Ubuntu上的DroidBox和APIMonitor/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
