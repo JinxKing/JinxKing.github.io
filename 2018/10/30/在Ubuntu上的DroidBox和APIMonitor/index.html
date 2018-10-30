@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="apk检测," />
 
 
 
@@ -79,16 +79,25 @@
 
 
 
-<meta name="description" content="今天也要加油鸭！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jinx&#39;blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="配置SDK环境安装环境：  JDK Android SDK Apktool DroidBox  Java环境配置在Oracle官网下载JDK（至少1.7，apktool需要1.7）   将安装包解压到/home/Android/java目录下   配置Java环境变量，这一步在配置SDK环境时一起配置 安装SDK在连接下载android-sdk_r24.4.1-linux.tgz，解压到/home">
+<meta name="keywords" content="apk检测">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Ubuntu上的DroidBox和APIMonitor">
+<meta property="og:url" content="http://yoursite.com/2018/10/30/在Ubuntu上的DroidBox和APIMonitor/index.html">
 <meta property="og:site_name" content="Jinx&#39;blog">
-<meta property="og:description" content="今天也要加油鸭！">
+<meta property="og:description" content="配置SDK环境安装环境：  JDK Android SDK Apktool DroidBox  Java环境配置在Oracle官网下载JDK（至少1.7，apktool需要1.7）   将安装包解压到/home/Android/java目录下   配置Java环境变量，这一步在配置SDK环境时一起配置 安装SDK在连接下载android-sdk_r24.4.1-linux.tgz，解压到/home">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="https://github.com/JinxKing/image/raw/master/image/droidbox_install_1.png">
+<meta property="og:image" content="https://github.com/JinxKing/image/raw/master/image/droidbox_install_2.png">
+<meta property="og:image" content="https://github.com/JinxKing/image/raw/master/image/droidbox_install_3.png">
+<meta property="og:image" content="https://img-blog.csdn.net/20161014154811127?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="https://img-blog.csdn.net/20161014155001379?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="https://img-blog.csdn.net/20161014161753269?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:updated_time" content="2018-10-30T12:28:17.937Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jinx&#39;blog">
-<meta name="twitter:description" content="今天也要加油鸭！">
+<meta name="twitter:title" content="在Ubuntu上的DroidBox和APIMonitor">
+<meta name="twitter:description" content="配置SDK环境安装环境：  JDK Android SDK Apktool DroidBox  Java环境配置在Oracle官网下载JDK（至少1.7，apktool需要1.7）   将安装包解压到/home/Android/java目录下   配置Java环境变量，这一步在配置SDK环境时一起配置 安装SDK在连接下载android-sdk_r24.4.1-linux.tgz，解压到/home">
+<meta name="twitter:image" content="https://github.com/JinxKing/image/raw/master/image/droidbox_install_1.png">
 
 
 
@@ -118,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/30/在Ubuntu上的DroidBox和APIMonitor/"/>
 
 
 
 
 
-  <title>Jinx'blog</title>
+  <title>在Ubuntu上的DroidBox和APIMonitor | Jinx'blog</title>
   
 
 
@@ -143,8 +152,7 @@
     
   
 
-  <div class="container sidebar-position-right 
-  page-home">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -217,9 +225,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -249,9 +257,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/10/30/在Ubuntu上的DroidBox和APIMonitor/" itemprop="url">在Ubuntu上的DroidBox和APIMonitor</a></h1>
+          <h1 class="post-title" itemprop="name headline">在Ubuntu上的DroidBox和APIMonitor</h1>
         
 
         <div class="post-meta">
@@ -311,9 +317,7 @@
       
 
       
-        
-          
-            <h1 id="配置SDK环境"><a href="#配置SDK环境" class="headerlink" title="配置SDK环境"></a>配置SDK环境</h1><p>安装环境：</p>
+        <h1 id="配置SDK环境"><a href="#配置SDK环境" class="headerlink" title="配置SDK环境"></a>配置SDK环境</h1><p>安装环境：</p>
 <ol>
 <li>JDK</li>
 <li>Android SDK</li>
@@ -361,8 +365,6 @@
 <p>有三种签名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Signature of one method</span><br><span class="line">Landroid/content/ContextWrapper;-&gt;openFileInput(Ljava/lang/String;)</span><br><span class="line"></span><br><span class="line"># Signature of methods with the same name </span><br><span class="line">Landroid/content/Intent;-&gt;&lt;init&gt;</span><br><span class="line"></span><br><span class="line"># Signature of all methods of the same class </span><br><span class="line">Landroid/content/ContentResolver;</span><br></pre></td></tr></table></figure></p>
 <p>参考：<br><a href="https://blog.csdn.net/u012195899/article/details/52814013" target="_blank" rel="noopener">https://blog.csdn.net/u012195899/article/details/52814013</a><br><a href="https://github.com/pjlantz/droidbox/wiki/APIMonitor" target="_blank" rel="noopener">https://github.com/pjlantz/droidbox/wiki/APIMonitor</a></p>
 
-          
-        
       
     </div>
     
@@ -377,324 +379,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/20/MRDroid/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/image/black_dog.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jinx'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/20/MRDroid/" itemprop="url">A Scalable and Prioritized Analysis of Inter-App Communication Risks</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-20T19:22:19+08:00">
-                2018-09-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/apk检测/" rel="tag"># apk检测</a>
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/09/20/MRDroid/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/09/20/MRDroid/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <h2 id="工作"><a href="#工作" class="headerlink" title="工作"></a>工作</h2><p>总体概括为两部分：</p>
-<ul>
-<li>利用Hadoop框架上的MapReduce处理算法，并行处理ICC。应标题的MR。</li>
-<li>对所有app构建Graph，进行neighbor-aware安全风险分析。</li>
-</ul>
-<p>基于Hadoop框架来缩短处理ICC的时间是效率问题，下面着重谈一下这篇文章的neighbor-aware安全风险分析。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/20/MRDroid/#more" rel="contents">
-              Read more &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/20/MRDroid/" rel="next" title="A Scalable and Prioritized Analysis of Inter-App Communication Risks">
+                <i class="fa fa-chevron-left"></i> A Scalable and Prioritized Analysis of Inter-App Communication Risks
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/dex文件格式/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/image/black_dog.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jinx'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/17/dex文件格式/" itemprop="url">dex文件格式</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-17T15:24:26+08:00">
-                2018-09-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/09/17/dex文件格式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/09/17/dex文件格式/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <h2 id="dex文件中的数据结构"><a href="#dex文件中的数据结构" class="headerlink" title="dex文件中的数据结构"></a>dex文件中的数据结构</h2><table>
-<thead>
-<tr>
-<th>类型</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>u1</td>
-<td>等同uint8_t，表示1字节的无符号数</td>
-</tr>
-<tr>
-<td>u2</td>
-<td>等同于uint16_t，表示2字节的无符号数</td>
-</tr>
-<tr>
-<td>u4</td>
-<td>等同于uint32_t，表示4字节的无符号数</td>
-</tr>
-<tr>
-<td>u8</td>
-<td>等同于uint64_t，表示8字节的无符号数</td>
-</tr>
-<tr>
-<td>sleb128</td>
-<td>有符号LEB128，可变长度1~5字节</td>
-</tr>
-<tr>
-<td>uleb128</td>
-<td>无符号LEB128，可变长度1~5字节</td>
-</tr>
-<tr>
-<td>uleb128p1</td>
-<td>无符号LEB128值加1，可变长度1~5字节</td>
-</tr>
-</tbody>
-</table>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/17/dex文件格式/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -704,292 +418,32 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/hexo + github 搭建个人blog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/image/black_dog.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jinx'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/17/hexo + github 搭建个人blog/" itemprop="url">hexo + github 搭建个人blog</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-17T15:24:26+08:00">
-                2018-09-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/09/17/hexo + github 搭建个人blog/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/09/17/hexo + github 搭建个人blog/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>记录本博客搭建过程。<br>用hexo + github搭建个人博客，博客主题为Next。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/17/hexo + github 搭建个人blog/#more" rel="contents">
-              Read more &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
 
 
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/17/Dalvik字节码/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jinx">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/image/black_dog.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jinx'blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/09/17/Dalvik字节码/" itemprop="url">Dalvik字节码</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-17T15:02:22+08:00">
-                2018-09-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/09/17/Dalvik字节码/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2018/09/17/Dalvik字节码/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h2 id="Dalvik语言基础"><a href="#Dalvik语言基础" class="headerlink" title="Dalvik语言基础"></a>Dalvik语言基础</h2><h3 id="v命名法和p命名法"><a href="#v命名法和p命名法" class="headerlink" title="v命名法和p命名法"></a>v命名法和p命名法</h3><p>假设一个函数中用到M个寄存器，实际传入的参数是N个。</p>
-<p>根据传参规则，参数使用后N个寄存器，局部变量使用0到M-N个寄存器。</p>
-<p>假如用到5个寄存器，2个局部参数，3个传入参数。</p>
-<p><strong>v命名法</strong>：</p>
-<p>v0,v1,v2,v3,v4;</p>
-<p><strong>p命名法</strong>：</p>
-<p>v0,v1,p0,p1,p2;</p>
-<p>只改变传入参数寄存器名。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/09/17/Dalvik字节码/#more" rel="contents">
-              Read more &raquo;
-            </a>
           </div>
-          <!--/noindex-->
-        
-      
+          
+
+  <p>热评文章</p>
+  <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div class="ds-thread" data-thread-key="2018/10/30/在Ubuntu上的DroidBox和APIMonitor/"
+           data-title="在Ubuntu上的DroidBox和APIMonitor" data-url="http://yoursite.com/2018/10/30/在Ubuntu上的DroidBox和APIMonitor/">
+      </div>
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
 
   
 
 
-          </div>
-          
-
-
-          
 
         </div>
         
@@ -1010,8 +464,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1082,6 +545,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#配置SDK环境"><span class="nav-number">1.</span> <span class="nav-text">配置SDK环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java环境配置"><span class="nav-number">1.1.</span> <span class="nav-text">Java环境配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装SDK"><span class="nav-number">1.2.</span> <span class="nav-text">安装SDK</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建虚拟机"><span class="nav-number">1.3.</span> <span class="nav-text">创建虚拟机</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置Droidbox部分"><span class="nav-number">2.</span> <span class="nav-text">配置Droidbox部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DroidBox使用"><span class="nav-number">2.1.</span> <span class="nav-text">DroidBox使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#APIMonitor"><span class="nav-number">2.2.</span> <span class="nav-text">APIMonitor</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1215,6 +694,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
