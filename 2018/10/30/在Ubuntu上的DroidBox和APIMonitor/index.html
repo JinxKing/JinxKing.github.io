@@ -93,7 +93,7 @@
 <meta property="og:image" content="https://img-blog.csdn.net/20161014154811127?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
 <meta property="og:image" content="https://img-blog.csdn.net/20161014155001379?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
 <meta property="og:image" content="https://img-blog.csdn.net/20161014161753269?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-<meta property="og:updated_time" content="2018-10-30T12:31:28.308Z">
+<meta property="og:updated_time" content="2018-10-30T13:20:43.927Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="在Ubuntu上的DroidBox和APIMonitor">
 <meta name="twitter:description" content="配置SDK环境安装环境：  JDK Android SDK Apktool DroidBox  Java环境配置在Oracle官网下载JDK（至少1.7，apktool需要1.7）   将安装包解压到/home/Android/java目录下   配置Java环境变量，这一步在配置SDK环境时一起配置">
@@ -345,7 +345,7 @@
 <p>下载droidbox压缩包<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ wget https://github.com/pjlantz/droidbox/releases/download/v4.1.1/DroidBox411RC.tar.gz</span><br></pre></td></tr></table></figure></p>
 <p>解压到目录<code>/home/Android/droidbox</code>中</p>
 <p>进入DroidBox_4.1.1目录执行里面的./startemu.sh脚本，执行脚本之前需要把avd关闭，这个脚本主要就是使用image文件夹下提供的镜像启动虚拟机。命令如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./startemu.sh droid</span><br></pre></td></tr></table></figure></p>
-<p>在DroidBox_4.1.1目录下，执行./droidbox脚本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./droidbox &lt;file apk&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在DroidBox_4.1.1目录下，执行./droidbox.sh脚本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ./droidbox.sh &lt;file apk&gt;</span><br></pre></td></tr></table></figure></p>
 <h2 id="DroidBox使用"><a href="#DroidBox使用" class="headerlink" title="DroidBox使用"></a>DroidBox使用</h2><p>ctrl-c 停止Droidbox</p>
 <p>查看droidbox的日志<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ adb logcat -s &quot;DroidBox&quot;</span><br></pre></td></tr></table></figure></p>
 <h2 id="APIMonitor"><a href="#APIMonitor" class="headerlink" title="APIMonitor"></a>APIMonitor</h2><p>需要的环境：</p>
@@ -363,7 +363,7 @@
 <p>监视的api列表在<code>config/default_api_collection</code>文件中</p>
 <p>可以自行修改列表，只需将一组方法签名放在文件中。</p>
 <p>有三种签名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># Signature of one method</span><br><span class="line">Landroid/content/ContextWrapper;-&gt;openFileInput(Ljava/lang/String;)</span><br><span class="line"></span><br><span class="line"># Signature of methods with the same name </span><br><span class="line">Landroid/content/Intent;-&gt;&lt;init&gt;</span><br><span class="line"></span><br><span class="line"># Signature of all methods of the same class </span><br><span class="line">Landroid/content/ContentResolver;</span><br></pre></td></tr></table></figure></p>
-<p>参考：<br><a href="https://blog.csdn.net/u012195899/article/details/52814013" target="_blank" rel="noopener">https://blog.csdn.net/u012195899/article/details/52814013</a><br><a href="https://github.com/pjlantz/droidbox/wiki/APIMonitor" target="_blank" rel="noopener">https://github.com/pjlantz/droidbox/wiki/APIMonitor</a></p>
+<p>参考：<br><a href="https://blog.csdn.net/u012195899/article/details/52814013" target="_blank" rel="noopener">https://blog.csdn.net/u012195899/article/details/52814013</a><br><a href="https://github.com/pjlantz/droidbox" target="_blank" rel="noopener">https://github.com/pjlantz/droidbox</a><br><a href="https://github.com/pjlantz/droidbox/wiki/APIMonitor" target="_blank" rel="noopener">https://github.com/pjlantz/droidbox/wiki/APIMonitor</a></p>
 
       
     </div>
